@@ -36,18 +36,18 @@ extern crate kernel32;
 /// Calling this function twice from the same thread will return the same
 /// number. Calling this function from a different thread will return a
 /// different number.
-pub fn get() -> u64 {
+pub fn get() -> usize {
     get_internal()
 }
 
 #[cfg(unix)]
-fn get_internal() -> u64 {
-    unsafe { libc::pthread_self() as u64 }
+fn get_internal() -> usize {
+    unsafe { libc::pthread_self() as usize }
 }
 
 #[cfg(windows)]
-fn get_internal() -> u64 {
-    unsafe { kernel32::GetCurrentThreadId() as u64 }
+fn get_internal() -> usize {
+    unsafe { kernel32::GetCurrentThreadId() as usize }
 }
 
 #[test]

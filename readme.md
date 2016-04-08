@@ -42,6 +42,6 @@ to your copyright notice.
 [crate-img]: http://img.shields.io/crates/v/thread-id.svg
 [crate]:     https://crates.io/crates/thread-id
 [docs-img]:  http://img.shields.io/badge/docs-online-blue.svg
-[docs]:      https://ruud-v-a.github.io/thread-id/doc/v1.0.0/thread-id/
+[docs]:      https://ruud-v-a.github.io/thread-id/doc/v2.0.0/thread-id/
 [apache2]:   https://www.apache.org/licenses/LICENSE-2.0
 [except]:    https://www.gnu.org/licenses/gpl-faq.html#GPLIncompatibleLibs
