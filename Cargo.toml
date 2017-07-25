@@ -10,8 +10,8 @@ repository = "https://github.com/ruuda/thread-id"
 documentation = "https://docs.rs/thread-id"
 
 [badges]
-travis-ci = { repository = "ruuda/thread-id" }
-appveyor = { repository = "ruuda/thread-id" }
+travis-ci = { repository = "ruuda/thread-id", branch = "v3.2.0" }
+appveyor = { repository = "ruuda/thread-id", branch = "v3.2.0" }
 
 [target.'cfg(unix)'.dependencies]
 libc = "0.2.6"
