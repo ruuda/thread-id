@@ -2,8 +2,6 @@ Thread-ID
 =========
 Get a unique ID for the current thread in Rust.
 
-[![Build Status][tr-img]][tr]
-[![Build Status][av-img]][av]
 [![Crates.io version][crate-img]][crate]
 [![Documentation][docs-img]][docs]
 
@@ -42,10 +40,6 @@ Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache 2.0 license, shall be
 dual licensed as above, without any additional terms or conditions.
 
-[tr-img]:    https://travis-ci.org/ruuda/thread-id.svg?branch=master
-[tr]:        https://travis-ci.org/ruuda/thread-id
-[av-img]:    https://ci.appveyor.com/api/projects/status/06804yxh55p41xl2?svg=true
-[av]:        https://ci.appveyor.com/project/ruuda/thread-id-y5v5o
 [crate-img]: https://img.shields.io/crates/v/thread-id.svg
 [crate]:     https://crates.io/crates/thread-id
 [docs-img]:  https://img.shields.io/badge/docs-online-blue.svg

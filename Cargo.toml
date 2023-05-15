@@ -10,7 +10,6 @@ repository = "https://github.com/ruuda/thread-id"
 documentation = "https://docs.rs/thread-id"
 
 [badges]
-travis-ci = { repository = "ruuda/thread-id", branch = "v4.0.0" }
 appveyor = { repository = "ruuda/thread-id-y5v5o", branch = "v4.0.0" }
 
 [target.'cfg(unix)'.dependencies]
