@@ -127,11 +127,11 @@ fn distinct_threads_have_distinct_ids() {
     use std::thread;
 
     let (tx, rx) = mpsc::channel();
-    thread::spawn(move || tx.send(::get()).unwrap())
+    thread::spawn(move || tx.send(get()).unwrap())
         .join()
         .unwrap();
 
-    let main_tid = ::get();
+    let main_tid = get();
     let other_tid = rx.recv().unwrap();
     assert!(main_tid != other_tid);
 }
