@@ -18,4 +18,4 @@ libc = "0.2.148"
 windows = { version = "0.51.1", features = ["Win32_System_Threading"] }
 
 [target.'cfg(target_os = "redox")'.dependencies]
-redox_syscall = "0.4"
+redox_syscall = "0.4.1"
