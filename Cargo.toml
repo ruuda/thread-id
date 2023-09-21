@@ -2,13 +2,13 @@
 name = "thread-id"
 version = "4.2.1"
 authors = ["Ruud van Asseldonk <dev@veniogames.com>"]
-license = "MIT/Apache-2.0"
+description = "Get a unique thread ID"
+documentation = "https://docs.rs/thread-id"
 readme = "readme.md"
+repository = "https://github.com/ruuda/thread-id"
+license = "MIT OR Apache-2.0"
 keywords = ["thread", "pthread", "getcurrentthreadid"]
 categories = ["api-bindings", "concurrency", "os"]
-description = "Get a unique thread ID"
-repository = "https://github.com/ruuda/thread-id"
-documentation = "https://docs.rs/thread-id"
 
 [target.'cfg(unix)'.dependencies]
 libc = "0.2.148"
