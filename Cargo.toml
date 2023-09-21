@@ -2,9 +2,10 @@
 name = "thread-id"
 version = "4.2.1"
 authors = ["Ruud van Asseldonk <dev@veniogames.com>"]
+edition = "2021"
 description = "Get a unique thread ID"
 documentation = "https://docs.rs/thread-id"
-readme = "readme.md"
+readme = "README.md"
 repository = "https://github.com/ruuda/thread-id"
 license = "MIT OR Apache-2.0"
 keywords = ["thread", "pthread", "getcurrentthreadid"]
