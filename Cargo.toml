@@ -1,19 +1,20 @@
 [package]
 name = "thread-id"
-version = "4.2.0"
+version = "4.2.1"
 authors = ["Ruud van Asseldonk <dev@veniogames.com>"]
 license = "MIT/Apache-2.0"
 readme = "readme.md"
 keywords = ["thread", "pthread", "getcurrentthreadid"]
+categories = ["api-bindings", "concurrency", "os"]
 description = "Get a unique thread ID"
 repository = "https://github.com/ruuda/thread-id"
 documentation = "https://docs.rs/thread-id"
 
 [target.'cfg(unix)'.dependencies]
-libc = "0.2.147"
+libc = "0.2.148"
 
 [target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3", features = ["processthreadsapi"] }
+windows = { version = "0.51.1", features = ["Win32_System_Threading"] }
 
 [target.'cfg(target_os = "redox")'.dependencies]
-redox_syscall = "0.2"
+redox_syscall = "0.4"

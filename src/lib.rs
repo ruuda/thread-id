@@ -31,7 +31,7 @@
 extern crate libc;
 
 #[cfg(windows)]
-extern crate winapi;
+extern crate windows;
 
 #[cfg(target_os = "redox")]
 extern crate syscall;
@@ -81,7 +81,7 @@ fn get_internal() -> usize {
 #[cfg(windows)]
 #[inline]
 fn get_internal() -> usize {
-    unsafe { winapi::um::processthreadsapi::GetCurrentThreadId() as usize }
+    unsafe { windows::Win32::System::Threading::GetCurrentThreadId() as usize }
 }
 
 #[cfg(target_os = "redox")]
@@ -127,7 +127,9 @@ fn distinct_threads_have_distinct_ids() {
     use std::thread;
 
     let (tx, rx) = mpsc::channel();
-    thread::spawn(move || tx.send(::get()).unwrap()).join().unwrap();
+    thread::spawn(move || tx.send(::get()).unwrap())
+        .join()
+        .unwrap();
 
     let main_tid = ::get();
     let other_tid = rx.recv().unwrap();
