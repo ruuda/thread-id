@@ -1,3 +1,14 @@
+# v4.2.2
+
+Released 2024-07-18.
+
+ * Support SGX target. ([#18][18])
+ * Ensures compatibility with Rust 1.34.2 through 1.79.0.
+
+Thanks to Arash Sahebolamri for contributing to this release.
+
+[18]: https://github.com/ruuda/thread-id/pull/18
+
 # v4.2.1
 
 Released 2023-10-16.
