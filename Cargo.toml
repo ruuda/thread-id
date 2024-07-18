@@ -1,6 +1,6 @@
 [package]
 name = "thread-id"
-version = "4.2.1"
+version = "4.2.2"
 authors = ["Ruud van Asseldonk <dev@veniogames.com>"]
 license = "MIT/Apache-2.0"
 readme = "readme.md"

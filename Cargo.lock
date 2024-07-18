@@ -7,7 +7,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "thread-id"
-version = "4.2.1"
+version = "4.2.2"
 dependencies = [
  "libc 0.2.149 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.9 (registry+https://github.com/rust-lang/crates.io-index)",
