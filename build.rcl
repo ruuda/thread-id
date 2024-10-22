@@ -1,0 +1,53 @@
+// There are a lot of repetitive configuration files for CI and Rustup, we
+// deduplicrate this using RCL version 0.5.0. <https://github.com/ruuda/rcl>
+// Rebuild the files by running `rcl build`.
+
+// The minimum supported Rust version (MSRV).
+let msrv = "1.56.1";
+
+// All of the Rust versions that we want to test on CI.
+// We pick the MSRV, beta and nightly, and one version somewhat in between.
+let rust_versions = [msrv, "1.69.0", "beta", "nightly"];
+
+let banner = "# This file is generated from build.rcl.";
+
+let appveyor_config = {
+  environment = {
+    matrix = [
+      for rust_version in rust_versions:
+      for arch in ["x86_64", "i686"]:
+      { target = f"{rust_version}-{arch}-pc-windows-msvc" },
+      // We also test GNU in addition to MSVC. We do this only on beta to not
+      // have explosion, and versions after Rust 1.70something, because those
+      // use the sparse registry index format which is much faster.
+      { target = "beta-x86_64-pc-windows-gnu" },
+      { target = "beta-i686-pc-windows-gnu" },
+    ],
+  },
+
+  install = [
+    // Download the Rust and Cargo installer.
+    { ps = "Start-FileDownload \"https://static.rust-lang.org/dist/rust-${env:target}.msi\"" },
+
+    // Install Rust and Cargo and wait for installation to finish by using Write-Output.
+    { ps = "msiexec /package \"rust-${env:target}.msi\" /quiet /norestart | Write-Output" },
+
+    // Pick up the new Path variable after the installer modified it.
+    { ps = "$env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\")" },
+
+    // Print versions for future reference.
+    "rustc --version",
+    "cargo --version",
+  ],
+
+  build_script = ["cargo build"],
+  test_script = ["cargo test"],
+};
+
+{
+  ".appveyor.yml": {
+    banner = banner,
+    format = "json",
+    contents = appveyor_config,
+  },
+}
