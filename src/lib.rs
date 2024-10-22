@@ -31,7 +31,7 @@
 extern crate libc;
 
 #[cfg(windows)]
-extern crate winapi;
+extern crate windows_sys;
 
 /// Returns a number that is unique to the calling thread.
 ///
@@ -78,7 +78,7 @@ fn get_internal() -> usize {
 #[cfg(windows)]
 #[inline]
 fn get_internal() -> usize {
-    unsafe { winapi::um::processthreadsapi::GetCurrentThreadId() as usize }
+    unsafe { windows_sys::Win32::System::Threading::GetCurrentThreadId() as usize }
 }
 
 #[cfg(all(
