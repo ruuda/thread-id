@@ -1,56 +1,108 @@
-name: Build
-
-on:
-  push:
-    branches: ["master"]
-
-  pull_request:
-    branches: ["master"]
-
-env:
-  CARGO_TERM_COLOR: always
-
-jobs:
-  build-native:
-    strategy:
-      matrix:
-        rust: ["1.56.1", "1.69.0", "beta", "nightly"]
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.2
-      - name: Install toolchain
-        run: "rustup toolchain install ${{ matrix.rust }}"
-      - name: Build
-        run: "cargo +${{ matrix.rust }} build --verbose"
-      - name: Run tests
-        run: "cargo +${{ matrix.rust }} test --verbose"
-
-  build-wasm:
-    strategy:
-      matrix:
-        rust: ["1.56.1"]
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.2
-      - name: Install toolchain
-        run: "rustup toolchain install ${{ matrix.rust }} && rustup target add wasm32-unknown-unknown --toolchain ${{ matrix.rust }}"
-      - name: Build
-        run: "cargo +${{ matrix.rust }} build --target wasm32-unknown-unknown --verbose"
-
-  check-sgx:
-    strategy:
-      matrix:
-        rust: ["1.56.1"]
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.2
-      - name: Install toolchain & targets
-        run: "rustup toolchain install ${{ matrix.rust }} && rustup target add x86_64-fortanix-unknown-sgx --toolchain ${{ matrix.rust }}"
-      - name: Build
-        run: "cargo +${{ matrix.rust }} check --target x86_64-fortanix-unknown-sgx --verbose"
+# This file is generated from build.rcl.
+{
+  "env": {"CARGO_TERM_COLOR": "always"},
+  "jobs": {
+    "native-1-56-1": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {"uses": "actions/checkout@v3.5.2"},
+        {
+          "name": "Install toolchain",
+          "run": "rustup toolchain install 1.56.1\nrustup target add x86_64-unknown-linux-gnu --toolchain 1.56.1\n"
+        },
+        {
+          "name": "Build",
+          "run": "cargo +1.56.1 build --target x86_64-unknown-linux-gnu --verbose"
+        },
+        {
+          "name": "Run tests",
+          "run": "cargo +1.56.1 test --target x86_64-unknown-linux-gnu --verbose"
+        }
+      ]
+    },
+    "native-1-69-0": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {"uses": "actions/checkout@v3.5.2"},
+        {
+          "name": "Install toolchain",
+          "run": "rustup toolchain install 1.69.0\nrustup target add x86_64-unknown-linux-gnu --toolchain 1.69.0\n"
+        },
+        {
+          "name": "Build",
+          "run": "cargo +1.69.0 build --target x86_64-unknown-linux-gnu --verbose"
+        },
+        {
+          "name": "Run tests",
+          "run": "cargo +1.69.0 test --target x86_64-unknown-linux-gnu --verbose"
+        }
+      ]
+    },
+    "native-beta": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {"uses": "actions/checkout@v3.5.2"},
+        {
+          "name": "Install toolchain",
+          "run": "rustup toolchain install beta\nrustup target add x86_64-unknown-linux-gnu --toolchain beta\n"
+        },
+        {
+          "name": "Build",
+          "run": "cargo +beta build --target x86_64-unknown-linux-gnu --verbose"
+        },
+        {
+          "name": "Run tests",
+          "run": "cargo +beta test --target x86_64-unknown-linux-gnu --verbose"
+        }
+      ]
+    },
+    "native-nightly": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {"uses": "actions/checkout@v3.5.2"},
+        {
+          "name": "Install toolchain",
+          "run": "rustup toolchain install nightly\nrustup target add x86_64-unknown-linux-gnu --toolchain nightly\n"
+        },
+        {
+          "name": "Build",
+          "run": "cargo +nightly build --target x86_64-unknown-linux-gnu --verbose"
+        },
+        {
+          "name": "Run tests",
+          "run": "cargo +nightly test --target x86_64-unknown-linux-gnu --verbose"
+        }
+      ]
+    },
+    "sgx-msrv": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {"uses": "actions/checkout@v3.5.2"},
+        {
+          "name": "Install toolchain",
+          "run": "rustup toolchain install 1.56.1\nrustup target add x86_64-fortanix-unknown-sgx --toolchain 1.56.1\n"
+        },
+        {
+          "name": "Build",
+          "run": "cargo +1.56.1 check --target x86_64-fortanix-unknown-sgx --verbose"
+        }
+      ]
+    },
+    "wasm-msrv": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {"uses": "actions/checkout@v3.5.2"},
+        {
+          "name": "Install toolchain",
+          "run": "rustup toolchain install 1.56.1\nrustup target add wasm32-unknown-unknown --toolchain 1.56.1\n"
+        },
+        {
+          "name": "Build",
+          "run": "cargo +1.56.1 build --target wasm32-unknown-unknown --verbose"
+        }
+      ]
+    }
+  },
+  "name": "Build",
+  "on": {"pull_request": {"branches": ["master"]}, "push": {"branches": ["*"]}}
+}

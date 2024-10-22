@@ -44,10 +44,91 @@ let appveyor_config = {
   test_script = ["cargo test"],
 };
 
+// Steps for GitHub Actions job.
+let gha_steps = args => [
+  { uses = "actions/checkout@v3.5.2" },
+  {
+    name = "Install toolchain",
+    run =
+      f"""
+      rustup toolchain install {args.rust_version}
+      rustup target add {args.target} --toolchain {args.rust_version}
+      """,
+  },
+  {
+    name = "Build",
+    run = f"cargo +{args.rust_version} {args.build_command} --target {args.target} --verbose",
+  },
+  if args.do_test:
+  {
+    name = "Run tests",
+    run = f"cargo +{args.rust_version} test --target {args.target} --verbose",
+  },
+];
+
+let gha_jobs = [
+  for rust_version in rust_versions:
+  {
+    // Dots are not allowed in job names.
+    name = f"native-{rust_version.replace(".", "-")}",
+    rust_version = rust_version,
+    target = "x86_64-unknown-linux-gnu",
+    build_command = "build",
+    do_test = true,
+  },
+  {
+    name = "wasm-msrv",
+    rust_version = msrv,
+    target = "wasm32-unknown-unknown",
+    build_command = "build",
+    do_test = false,
+  },
+  {
+    name = "sgx-msrv",
+    rust_version = msrv,
+    target = "x86_64-fortanix-unknown-sgx",
+    build_command = "check",
+    do_test = false,
+  },
+];
+
+
+let github_actions_config = {
+  name = "Build",
+  on = {
+    push = { branches = ["*"] },
+    pull_request = { branches = ["master"] },
+  },
+  env = {
+    CARGO_TERM_COLOR = "always",
+  },
+  jobs = {
+    for job in gha_jobs:
+    job.name: {
+      runs-on = "ubuntu-latest",
+      steps = gha_steps(job),
+    },
+  },
+};
+
 {
   ".appveyor.yml": {
     banner = banner,
     format = "json",
     contents = appveyor_config,
+  },
+
+  ".github/workflows/build.yml": {
+    banner = banner,
+    format = "json",
+    contents = github_actions_config,
+  },
+
+  "rust-toolchain.toml": {
+    banner = banner,
+    format = "toml",
+    // For local development, we test with the MSRV by default, to not
+    // accidentally break things.
+    contents = { toolchain = { channel = msrv } },
   },
 }
