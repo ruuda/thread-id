@@ -46,7 +46,7 @@ let appveyor_config = {
 
 // Steps for GitHub Actions job.
 let gha_steps = args => [
-  { uses = "actions/checkout@v3.5.2" },
+  { uses = "actions/checkout@v4.2.1" },
   {
     name = "Install toolchain",
     run =
