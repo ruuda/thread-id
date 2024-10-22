@@ -1,5 +1,5 @@
 // There are a lot of repetitive configuration files for CI and Rustup, we
-// deduplicrate this using RCL version 0.5.0. <https://github.com/ruuda/rcl>
+// deduplicate this using RCL version 0.5.0. <https://github.com/ruuda/rcl>
 // Rebuild the files by running `rcl build`.
 
 // The minimum supported Rust version (MSRV).
