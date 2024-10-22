@@ -8,6 +8,7 @@ keywords = ["thread", "pthread", "getcurrentthreadid"]
 description = "Get a unique thread ID"
 repository = "https://github.com/ruuda/thread-id"
 documentation = "https://docs.rs/thread-id"
+edition = "2021"
 
 [target.'cfg(unix)'.dependencies]
 libc = "0.2.147"
