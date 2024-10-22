@@ -1,3 +1,27 @@
+# v5.0.0
+
+Released 2024-10-22.
+
+This release contains no functional changes compared to v4.2.2. Users who have
+no issues with the `winapi` crate are not advised to update.
+
+**Compatibility:**
+
+ * The minimum supported Rust version is now 1.60.0.
+   (This requirement is imposed by the `windows-sys` crate.)
+
+Changes:
+
+ * Replace the `winapi` dependency with `windows-sys`. They are functionally
+   equivalent, however `windows-sys` is published first-party by Microsoft.
+   ([#19][19])
+ * Uses Rust edition 2021 rather than 2015.
+ * CI configuration is now generated with [RCL](https://rcl-lang.org/),
+   to make it easier to bump the MSRV in the future.
+ * Ensures compatibility with Rust 1.60.0 through 1.82.0.
+
+[19]: https://github.com/ruuda/thread-id/issues/19
+
 # v4.2.2
 
 Released 2024-07-18.
