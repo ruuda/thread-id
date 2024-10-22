@@ -84,7 +84,7 @@
         },
         {
           "name": "Build",
-          "run": "cargo +1.56.1 check --target x86_64-fortanix-unknown-sgx --verbose"
+          "run": "cargo +1.56.1 build --target x86_64-fortanix-unknown-sgx --verbose"
         }
       ]
     },

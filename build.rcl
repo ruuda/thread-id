@@ -57,7 +57,7 @@ let gha_steps = args => [
   },
   {
     name = "Build",
-    run = f"cargo +{args.rust_version} {args.build_command} --target {args.target} --verbose",
+    run = f"cargo +{args.rust_version} build --target {args.target} --verbose",
   },
   if args.do_test:
   {
@@ -73,21 +73,18 @@ let gha_jobs = [
     name = f"native-{rust_version.replace(".", "-")}",
     rust_version = rust_version,
     target = "x86_64-unknown-linux-gnu",
-    build_command = "build",
     do_test = true,
   },
   {
     name = "wasm-msrv",
     rust_version = msrv,
     target = "wasm32-unknown-unknown",
-    build_command = "build",
     do_test = false,
   },
   {
     name = "sgx-msrv",
     rust_version = msrv,
     target = "x86_64-fortanix-unknown-sgx",
-    build_command = "check",
     do_test = false,
   },
 ];
