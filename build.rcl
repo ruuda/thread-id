@@ -3,11 +3,11 @@
 // Rebuild the files by running `rcl build`.
 
 // The minimum supported Rust version (MSRV).
-let msrv = "1.56.1";
+let msrv = "1.60.0";
 
 // All of the Rust versions that we want to test on CI.
 // We pick the MSRV, beta and nightly, and one version somewhat in between.
-let rust_versions = [msrv, "1.69.0", "beta", "nightly"];
+let rust_versions = [msrv, "1.70.0", "beta", "nightly"];
 
 let banner = "# This file is generated from build.rcl.";
 

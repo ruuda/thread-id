@@ -2,39 +2,39 @@
 {
   "env": {"CARGO_TERM_COLOR": "always"},
   "jobs": {
-    "native-1-56-1": {
+    "native-1-60-0": {
       "runs-on": "ubuntu-latest",
       "steps": [
         {"uses": "actions/checkout@v3.5.2"},
         {
           "name": "Install toolchain",
-          "run": "rustup toolchain install 1.56.1\nrustup target add x86_64-unknown-linux-gnu --toolchain 1.56.1\n"
+          "run": "rustup toolchain install 1.60.0\nrustup target add x86_64-unknown-linux-gnu --toolchain 1.60.0\n"
         },
         {
           "name": "Build",
-          "run": "cargo +1.56.1 build --target x86_64-unknown-linux-gnu --verbose"
+          "run": "cargo +1.60.0 build --target x86_64-unknown-linux-gnu --verbose"
         },
         {
           "name": "Run tests",
-          "run": "cargo +1.56.1 test --target x86_64-unknown-linux-gnu --verbose"
+          "run": "cargo +1.60.0 test --target x86_64-unknown-linux-gnu --verbose"
         }
       ]
     },
-    "native-1-69-0": {
+    "native-1-70-0": {
       "runs-on": "ubuntu-latest",
       "steps": [
         {"uses": "actions/checkout@v3.5.2"},
         {
           "name": "Install toolchain",
-          "run": "rustup toolchain install 1.69.0\nrustup target add x86_64-unknown-linux-gnu --toolchain 1.69.0\n"
+          "run": "rustup toolchain install 1.70.0\nrustup target add x86_64-unknown-linux-gnu --toolchain 1.70.0\n"
         },
         {
           "name": "Build",
-          "run": "cargo +1.69.0 build --target x86_64-unknown-linux-gnu --verbose"
+          "run": "cargo +1.70.0 build --target x86_64-unknown-linux-gnu --verbose"
         },
         {
           "name": "Run tests",
-          "run": "cargo +1.69.0 test --target x86_64-unknown-linux-gnu --verbose"
+          "run": "cargo +1.70.0 test --target x86_64-unknown-linux-gnu --verbose"
         }
       ]
     },
@@ -80,11 +80,11 @@
         {"uses": "actions/checkout@v3.5.2"},
         {
           "name": "Install toolchain",
-          "run": "rustup toolchain install 1.56.1\nrustup target add x86_64-fortanix-unknown-sgx --toolchain 1.56.1\n"
+          "run": "rustup toolchain install 1.60.0\nrustup target add x86_64-fortanix-unknown-sgx --toolchain 1.60.0\n"
         },
         {
           "name": "Build",
-          "run": "cargo +1.56.1 build --target x86_64-fortanix-unknown-sgx --verbose"
+          "run": "cargo +1.60.0 build --target x86_64-fortanix-unknown-sgx --verbose"
         }
       ]
     },
@@ -94,11 +94,11 @@
         {"uses": "actions/checkout@v3.5.2"},
         {
           "name": "Install toolchain",
-          "run": "rustup toolchain install 1.56.1\nrustup target add wasm32-unknown-unknown --toolchain 1.56.1\n"
+          "run": "rustup toolchain install 1.60.0\nrustup target add wasm32-unknown-unknown --toolchain 1.60.0\n"
         },
         {
           "name": "Build",
-          "run": "cargo +1.56.1 build --target wasm32-unknown-unknown --verbose"
+          "run": "cargo +1.60.0 build --target wasm32-unknown-unknown --verbose"
         }
       ]
     }
