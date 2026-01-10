@@ -1,10 +1,15 @@
-# v5.0.1
+# v5.1.0
 
 Released 2026-01-10.
 
 This release contains no functional changes compared to v5.0.0. Updating is not
 needed for users who do not build for Windows, nor for users who have
 `windows-sys` 0.59 in their dependency tree anyway.
+
+**Compatibility:**
+
+ * The minimum supported Rust version is now 1.71.0.
+   (This requirement is imposed by the `windows-link` crate.)
 
 Changes:
 
