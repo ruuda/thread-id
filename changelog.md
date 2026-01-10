@@ -1,3 +1,15 @@
+# v5.0.1
+
+Released 2026-01-10.
+
+This release contains no functional changes compared to v5.0.0. Updating is not
+needed for users who do not build for Windows, nor for users who have
+`windows-sys` 0.59 in their dependency tree anyway.
+
+Changes:
+
+ * Bump `windows-sys` dependency from 0.59 to 0.61.
+
 # v5.0.0
 
 Released 2024-10-22.
