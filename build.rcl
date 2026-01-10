@@ -11,45 +11,6 @@ let rust_versions = [msrv, "1.81.0", "beta", "nightly"];
 
 let banner = "# This file is generated from build.rcl.";
 
-let appveyor_config = {
-  environment = {
-    matrix = [
-      for rust_version in rust_versions:
-      for arch in ["x86_64", "i686"]:
-      { target = f"{rust_version}-{arch}-pc-windows-msvc" },
-      // We also test GNU in addition to MSVC. We do this only on beta to not
-      // have explosion, and versions after Rust 1.70something, because those
-      // use the sparse registry index format which is much faster.
-      { target = "beta-x86_64-pc-windows-gnu" },
-      { target = "beta-i686-pc-windows-gnu" },
-    ],
-  },
-
-  install = [
-    // Download the Rust and Cargo installer.
-    {
-      ps = "Start-FileDownload \"https://static.rust-lang.org/dist/rust-${env:target}.msi\"",
-    },
-
-    // Install Rust and Cargo and wait for installation to finish by using Write-Output.
-    {
-      ps = "msiexec /package \"rust-${env:target}.msi\" /quiet /norestart | Write-Output",
-    },
-
-    // Pick up the new Path variable after the installer modified it.
-    {
-      ps = "$env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\")",
-    },
-
-    // Print versions for future reference.
-    "rustc --version",
-    "cargo --version",
-  ],
-
-  build_script = ["cargo build"],
-  test_script = ["cargo test"],
-};
-
 // Steps for GitHub Actions job.
 let gha_steps = args => [
   { uses = "actions/checkout@v4.2.1" },
@@ -76,21 +37,48 @@ let gha_jobs = [
   for rust_version in rust_versions:
   {
     // Dots are not allowed in job names.
-    name = f"native-{rust_version.replace(".", "-")}",
+    name = f"linux-{rust_version.replace(".", "-")}",
     rust_version = rust_version,
     target = "x86_64-unknown-linux-gnu",
+    image = "ubuntu-latest",
     do_test = true,
   },
+
+  for rust_version in rust_versions:
+  for arch in ["x86_64", "i686"]:
+  {
+    name = f"windows-msvc-{rust_version.replace(".", "-")}-{arch}",
+    rust_version = rust_version,
+    target = f"{arch}-pc-windows-msvc",
+    image = "windows-latest",
+    do_test = true,
+  },
+
+  // We also test GNU in addition to MSVC. We do this only on beta to not have
+  // combinatorial explosion. We test only x86_64 and not i686, because the
+  // linker i686-w64-mingw32-gcc is not available on GitHub Actions.
+  {
+    name = "windows-gnu-beta-x86_64",
+    rust_version = "beta",
+    target = "x86_64-pc-windows-gnu",
+    image = "windows-latest",
+    do_test = true,
+  },
+
+  // Finally, we have two more exotic platforms where we only test MSRV, and
+  // where we can't run the tests because it's not the native platform.
   {
     name = "wasm-msrv",
     rust_version = msrv,
     target = "wasm32-unknown-unknown",
+    image = "ubuntu-latest",
     do_test = false,
   },
   {
     name = "sgx-msrv",
     rust_version = msrv,
     target = "x86_64-fortanix-unknown-sgx",
+    image = "ubuntu-latest",
     do_test = false,
   },
 ];
@@ -107,19 +95,13 @@ let github_actions_config = {
   jobs = {
     for job in gha_jobs:
     job.name: {
-      runs-on = "ubuntu-latest",
+      runs-on = job.image,
       steps = gha_steps(job),
     }
   },
 };
 
 {
-  ".appveyor.yml": {
-    banner = banner,
-    format = "json",
-    contents = appveyor_config,
-  },
-
   ".github/workflows/build.yml": {
     banner = banner,
     format = "json",

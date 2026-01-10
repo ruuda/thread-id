@@ -10,6 +10,9 @@ needed for users who do not build for Windows, nor for users who have
 
  * The minimum supported Rust version is now 1.71.0.
    (This requirement is imposed by the `windows-link` crate.)
+ * The `i686-pc-windows-gnu` target can no longer be tested,
+   and as such is no longer guaranteed to work.
+   `i868-pc-windows-msvc` is still tested.
 
 Changes:
 
