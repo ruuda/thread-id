@@ -54,7 +54,7 @@ pub fn get() -> usize {
 ))]
 #[inline]
 fn get_internal() -> usize {
-    unsafe { libc::pthread_self() as usize }
+    unsafe { libc::syscall(libc::SYS_gettid) as usize }
 }
 
 #[cfg(all(
